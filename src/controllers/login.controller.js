@@ -29,7 +29,8 @@ exports.login = (req, res) => {
         email:user.email,
         token:token,
         startToken: dayjs().toDate(),
-        endToken:dayjs().add(30, 'day').toDate()
+        endToken:dayjs().add(30, 'day').toDate(),
+        updatedAt: dayjs().add(30, 'day').toDate()
     }
 
     var condition = { email: user.email, pass: pass }
