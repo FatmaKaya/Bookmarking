@@ -4,7 +4,6 @@ var books = require('google-books-search');
 
 exports.search = (req, res) => {
     let text = req.query.text
-
     var options = {
         offset: 0,
         limit: 40,
@@ -41,17 +40,15 @@ exports.add = (req, res) => {
     Book.findAll({ where: { userId: req.user.id, bookId: book.bookId } })
         .then(books => {
             if (books.length == 0) {
-                Book.create(book)
-                    .then(data => {
-                        res.send(data);
-                    })
-                    .catch(err => {
-                        res.status(500).send({
-                            type: "warning",
-                            title: "Warning",
-                            message: "Some error occurred while adding the Book."
-                        });
+                Book.create(book).then(data => {
+                    res.send(data);
+                }).catch(err => {
+                    res.status(500).send({
+                        type: "warning",
+                        title: "Warning",
+                        message: "Some error occurred while adding the Book."
                     });
+                });
             }
             else {
                 res.status(500).send({
@@ -70,9 +67,7 @@ exports.add = (req, res) => {
 };
 
 exports.remove = (req, res) => {
-    // Validate request
     const id = req.params.id;
-
     Book.findOne({ where: { id: id } })
         .then(book => {
             if (book != null) {
@@ -80,28 +75,25 @@ exports.remove = (req, res) => {
                     console.log("benim")
                     Book.destroy({
                         where: { id: id }
-                    })
-                        .then(num => {
-                            if (num == 1) {
-                                res.send({
-                                    type: "info",
-                                    title: "success",
-                                    message: "Bookmarking was deleted successfully!"
-                                });
-                            } else {
-                                res.send({
-                                    type: "info",
-                                    title: "success",
-                                    message: "Failed to delete bookmark!"
-                                });
-                            }
-                        })
-                        .catch(err => {
-                            res.status(500).send({
+                    }).then(num => {
+                        if (num == 1) {
+                            res.send({
+                                type: "info",
+                                title: "success",
+                                message: "Bookmarking was deleted successfully!"
+                            });
+                        } else {
+                            res.send({
+                                type: "info",
+                                title: "success",
                                 message: "Failed to delete bookmark!"
                             });
+                        }
+                    }).catch(err => {
+                        res.status(500).send({
+                            message: "Failed to delete bookmark!"
                         });
-
+                    });
                 }
                 else {
                     res.status(500).send({
@@ -118,7 +110,6 @@ exports.remove = (req, res) => {
                     message: "I don't have such a bookmark!"
                 });
             }
-
         }).catch(err => {
             res.status(500).send({
                 type: "error",
