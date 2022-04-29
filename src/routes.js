@@ -21,7 +21,6 @@ module.exports = app => {
                     User.findOne({ where: { token: token } })
                         .then(user => {
                             user = user.dataValues
-                            console.log(user)
                         }).catch(err => {
                             res.status(401).send({
                                 type: "token_expire",
@@ -29,6 +28,7 @@ module.exports = app => {
                                 message: "Your session has been terminated, please login again.",
                             });
                         });
+                    req.user = verified.userInfo
                 }
             }
         }
