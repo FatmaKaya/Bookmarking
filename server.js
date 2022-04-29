@@ -21,7 +21,13 @@ app.get("/", (req, res) => {
     res.json({ message: "Hello Dear!" });
 });
 
+app.use((req, res, next) => {
+    console.log('Time:', Date.now())
+    next()
+  })
+
 require("./src/routes")(app);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

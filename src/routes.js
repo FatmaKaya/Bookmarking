@@ -8,11 +8,8 @@ module.exports = app => {
     router.post("/login", login.login);
 
     //User
-    router.get("/user", user.findAll);
     router.post("/user", user.create);
     router.get("/user/:id", user.findOne);
-    router.put("/user/:id", user.update);
-    router.delete("/user/:id", user.delete);
 
     app.use('/api', router);
 };
