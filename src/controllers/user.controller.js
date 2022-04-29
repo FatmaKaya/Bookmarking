@@ -10,8 +10,10 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
   // Validate request
   let user = req.body;
-  if (!user.name ||!user.email || !user.pass ) {
+  if (!user.name || !user.email || !user.pass) {
     res.status(400).send({
+      type: "warning",
+      title: "Warning",
       message: "All fields are required.!"
     });
     return;
@@ -19,7 +21,7 @@ exports.create = (req, res) => {
 
   user = {
     ...user,
-    pass :crypto.createHmac('sha256', secret.HASH_SECRET).update(req.body.pass).digest('hex')
+    pass: crypto.createHmac('sha256', secret.HASH_SECRET).update(req.body.pass).digest('hex')
   }
 
   User.create(user)
@@ -28,8 +30,9 @@ exports.create = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the User."
+        type: "warning",
+        title: "Warning",
+        message: "Some error occurred while creating the User."
       });
     });
 };
@@ -44,12 +47,16 @@ exports.findOne = (req, res) => {
         res.send(data);
       } else {
         res.status(404).send({
+          type: "error",
+          title: "error",
           message: `Cannot find User with id=${id}.`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
+        type: "warning",
+        title: "Warning",
         message: "Error retrieving User with id=" + id
       });
     });

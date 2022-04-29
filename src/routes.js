@@ -44,6 +44,8 @@ module.exports = app => {
 
     //book
     router.get("/book/search", book.search);
+    router.post("/book/add", book.add);
+
 
     app.use('/api', router);
 };
