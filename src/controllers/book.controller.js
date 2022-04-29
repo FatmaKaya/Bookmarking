@@ -68,3 +68,62 @@ exports.add = (req, res) => {
             });
         });
 };
+
+exports.remove = (req, res) => {
+    // Validate request
+    const id = req.params.id;
+
+    Book.findOne({ where: { id: id } })
+        .then(book => {
+            if (book != null) {
+                if (book.dataValues.userId == req.user.id) {
+                    console.log("benim")
+                    Book.destroy({
+                        where: { id: id }
+                    })
+                        .then(num => {
+                            if (num == 1) {
+                                res.send({
+                                    type: "info",
+                                    title: "success",
+                                    message: "Bookmarking was deleted successfully!"
+                                });
+                            } else {
+                                res.send({
+                                    type: "info",
+                                    title: "success",
+                                    message: "Failed to delete bookmark!"
+                                });
+                            }
+                        })
+                        .catch(err => {
+                            res.status(500).send({
+                                message: "Failed to delete bookmark!"
+                            });
+                        });
+
+                }
+                else {
+                    res.status(500).send({
+                        type: "error",
+                        title: "error",
+                        message: "I don't have such a bookmark!"
+                    });
+                }
+            }
+            else {
+                res.status(500).send({
+                    type: "error",
+                    title: "error",
+                    message: "I don't have such a bookmark!"
+                });
+            }
+
+        }).catch(err => {
+            res.status(500).send({
+                type: "error",
+                title: "error",
+                message: "Not working!"
+            });
+        });
+};

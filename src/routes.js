@@ -45,6 +45,8 @@ module.exports = app => {
     //book
     router.get("/book/search", book.search);
     router.post("/book/add", book.add);
+    router.delete("/book/:id", book.remove);
+
 
 
     app.use('/api', router);
