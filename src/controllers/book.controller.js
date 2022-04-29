@@ -118,3 +118,16 @@ exports.remove = (req, res) => {
             });
         });
 };
+
+exports.list = (req, res) => {
+    Book.findAll({ where: { userId: req.user.id } })
+        .then(books => {
+            res.send(books);
+        }).catch(err => {
+            res.status(500).send({
+                type: "error",
+                title: "error",
+                message: "Not working!"
+            });
+        });
+};
