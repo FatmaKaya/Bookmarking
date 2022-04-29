@@ -38,10 +38,8 @@ exports.add = (req, res) => {
         return;
     }
 
-    console.log({ userId: req.user.id, bookId: book.bookId })
     Book.findAll({ where: { userId: req.user.id, bookId: book.bookId } })
         .then(books => {
-            console.log(books.length)
             if (books.length == 0) {
                 Book.create(book)
                     .then(data => {
@@ -69,19 +67,4 @@ exports.add = (req, res) => {
                 message: "Not working!"
             });
         });
-
-
-
-    // Book.create(book)
-    //     .then(data => {
-    //         res.send(data);
-    //     })
-    //     .catch(err => {
-    //         res.status(500).send({
-    //             message:
-    //                 err.message || "Some error occurred while creating the Book."
-    //         });
-    //     });
-
-
 };
