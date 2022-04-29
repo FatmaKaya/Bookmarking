@@ -12,12 +12,6 @@ module.exports = (sequelize, Sequelize) => {
         token: {
             type: Sequelize.STRING
         },
-        startToken: {
-            type: Sequelize.DATE,
-        },
-        endToken: {
-            type: Sequelize.DATE,
-        },
         createdAt: {
             type: Sequelize.DATE,
         },

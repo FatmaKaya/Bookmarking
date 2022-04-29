@@ -3,7 +3,6 @@ const cors = require("cors");
 const app = express();
 const db = require("./src/models");
 
-
 var corsOptions = {
     origin: "http://localhost:8081"
 };
@@ -21,12 +20,24 @@ app.get("/", (req, res) => {
     res.json({ message: "Hello Dear!" });
 });
 
-app.use((req, res, next) => {
-    console.log('Time:', Date.now())
-    next()
-  })
-
 require("./src/routes")(app);
+
+app.use((err, req, res, next) => {
+    if (err == "JsonWebTokenError: invalid token") {
+        res.status(401).send({
+            type: "token_expire",
+            title: "Warning",
+            message: "Your session has been terminated, please login again.",
+        })
+    }
+    else {
+        res.status(404).send({
+            type: "Eror",
+            title: "Eror",
+            message: "Not Working!",
+        })
+    }
+})
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
