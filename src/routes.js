@@ -12,7 +12,7 @@ var router = require("express").Router();
 module.exports = app => {
     router.use((req, res, next) => {
         let token = req.headers.authorization
-        let status = (req.url.startsWith("/login") || req.url.startsWith("/register")) ? true : false
+        let status = (req.url.startsWith("/login") || req.url.startsWith("/register") || req.url.startsWith("/book/search")) ? true : false
 
         if (!status) {
             if (token.length > 0) {
