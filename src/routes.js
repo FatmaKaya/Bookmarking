@@ -12,7 +12,7 @@ var router = require("express").Router();
 module.exports = app => {
     router.use((req, res, next) => {
         let token = req.headers.authorization
-        let status = (req.url.startsWith("/login") || req.url.startsWith("/register") || req.url.startsWith("/book/search")) ? true : false
+        let status = (req.url.startsWith("/login") || req.url.startsWith("/register") || req.url.startsWith("/search")) ? true : false
 
         if (!status) {
             if (token.length > 0) {
@@ -43,7 +43,7 @@ module.exports = app => {
     router.get("/user/:id", user.findOne);
 
     //book
-    router.get("/book/search", book.search);
+    router.get("/search", book.search);
     router.post("/book/add", book.add);
     router.delete("/book/:id", book.remove);
     router.get("/book/mylist", book.list);

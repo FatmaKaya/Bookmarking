@@ -72,7 +72,6 @@ exports.remove = (req, res) => {
         .then(book => {
             if (book != null) {
                 if (book.dataValues.userId == req.user.id) {
-                    console.log("benim")
                     Book.destroy({
                         where: { id: id }
                     }).then(num => {
@@ -107,7 +106,7 @@ exports.remove = (req, res) => {
                 res.status(500).send({
                     type: "error",
                     title: "error",
-                    message: "I don't have such a bookmark!"
+                    message: "There is no such bookmark!"
                 });
             }
         }).catch(err => {
