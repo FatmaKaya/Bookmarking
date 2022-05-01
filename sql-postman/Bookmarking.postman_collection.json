@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "54813cc3-b4eb-4487-8389-fda5dc7fc63d",
+		"name": "Bookmarking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/book/search?text=orhan pamuk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"book",
+						"search"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "orhan pamuk"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Fatma Kaya\",\r\n    \"email\":\"kaya.fatma.kaya@hotmail.com\",\r\n    \"pass\":\"fatKaa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"kaya.fatma.kaya@hotmail.com\",\r\n    \"pass\":\"fatKaa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Bookmarking Add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJpZCI6MSwiZW1haWwiOiJrYXlhLmZhdG1hLmtheWFAaG90bWFpbC5jb20iLCJuYW1lIjoiRmF0bWEgS2F5YSJ9LCJpYXQiOjE2NTEzOTc0NjYsImV4cCI6MTY1MjI2MTQ2Nn0.aDse6VV0cbmP7Vzi-VxNCvKoIO4nmgSl16mbxLiR7mc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bookId\":\"lLx2DwAAQBAJ\",\r\n    \"title\":\"Ötekinin Gözünden Orhan Pamuk\",\r\n    \"link\":\"https://play.google.com/store/books/details?id=lLx2DwAAQBAJ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/book/add"
+			},
+			"response": []
+		},
+		{
+			"name": "Bookmarking Remove",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJpZCI6MSwiZW1haWwiOiJrYXlhLmZhdG1hLmtheWFAaG90bWFpbC5jb20iLCJuYW1lIjoiRmF0bWEgS2F5YSJ9LCJpYXQiOjE2NTEzOTc0NjYsImV4cCI6MTY1MjI2MTQ2Nn0.aDse6VV0cbmP7Vzi-VxNCvKoIO4nmgSl16mbxLiR7mc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/book/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"book",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bookmarking Mylist",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJpZCI6MSwiZW1haWwiOiJrYXlhLmZhdG1hLmtheWFAaG90bWFpbC5jb20iLCJuYW1lIjoiRmF0bWEgS2F5YSJ9LCJpYXQiOjE2NTEzOTc0NjYsImV4cCI6MTY1MjI2MTQ2Nn0.aDse6VV0cbmP7Vzi-VxNCvKoIO4nmgSl16mbxLiR7mc",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/api/book/mylist"
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJpZCI6MTUsImVtYWlsIjoiZjIiLCJuYW1lIjoiZjIifSwiaWF0IjoxNjUxMjMxNzcxLCJleHAiOjE2NTIwOTU3NzF9.Rojh8PsuwCDxCM-_IyQ2lsGYFCoSkQbAPiBZLSDyKaw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/user/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
