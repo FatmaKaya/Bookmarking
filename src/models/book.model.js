@@ -1,9 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
     const Book = sequelize.define("books", {
-        userId:{
-            type: Sequelize.STRING
+        userId: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id'
+            }
         },
-        bookId:{
+        bookId: {
             type: Sequelize.STRING
         },
         title: {
@@ -19,5 +24,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DATE,
         }
     });
+        Book.associate = function (models) {
+            Book.hasMany(models.user, { foreignKey: 'userId', as: 'users' })
+        };
     return Book;
 };
