@@ -19,20 +19,39 @@ exports.create = (req, res) => {
     return;
   }
 
-  user = {
-    ...user,
-    pass: crypto.createHmac('sha256', secret.HASH_SECRET).update(req.body.pass).digest('hex')
-  }
+  User.findAll({ where: { email: user.email } })
+    .then(users => {
+      if (users.length == 0) {
 
-  User.create(user)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
+        user = {
+          ...user,
+          pass: crypto.createHmac('sha256', secret.HASH_SECRET).update(req.body.pass).digest('hex')
+        }
+
+        User.create(user)
+          .then(data => {
+            res.send(data);
+          }).catch(err => {
+            res.status(500).send({
+              type: "warning",
+              title: "Warning",
+              message: "Some error occurred while creating the User."
+            });
+          });
+
+      }
+      else {
+        res.status(500).send({
+          type: "warning",
+          title: "Warning",
+          message: "User already exists with this email!"
+        });
+      }
+    }).catch(err => {
       res.status(500).send({
-        type: "warning",
-        title: "Warning",
-        message: "Some error occurred while creating the User."
+        type: "error",
+        title: "error",
+        message: "Not working!"
       });
     });
 };
